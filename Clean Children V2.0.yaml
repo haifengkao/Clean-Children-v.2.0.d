@@ -11,6 +11,8 @@ masters:
     size: 4565686
   - name: Beauty_Pack.esm
     size: 275498
+  - name: Balmora Expansion v1.5.esp
+    size: 3069970
 records:
   "Faction::The Black Hand":
     type: Faction
