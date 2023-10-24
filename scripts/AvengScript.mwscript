@@ -1,0 +1,7 @@
+Begin AvengScript
+
+if ( GetHealth,  "ArielaAvenger" < 3200 )
+	ModCurrentHealth 3200
+endif
+
+End

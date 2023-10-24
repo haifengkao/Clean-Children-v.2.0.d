@@ -1,0 +1,89 @@
+Begin 11AJ_show_skills2
+
+; this script is basically the same as TheLys has been using in Give Your Orders-mod
+
+short p_unarmored
+short p_alchemy
+short p_mysticism
+short p_conjuration
+short p_illusion
+short p_alteration
+short p_destruction
+short p_enchant
+short p_spear
+short p_axe
+short p_bluntweapon
+short p_marksman
+short p_shortblade
+short p_security
+short p_restoration
+short p_block
+short p_speechcraft
+short p_mercantile
+short p_heavyarmor
+short p_lightarmor
+short p_handtohand
+; short p_acrobatics
+short p_armorer
+; short p_athletics
+short p_sneak
+short p_mediumarmor
+short p_longblade
+
+short p_strength
+short p_intelligence
+short p_willpower
+short p_agility
+short p_endurance
+short p_personality
+short p_luck
+
+;  set p_acrobatics to ( GetAcrobatics )
+;  set p_athletics to ( GetAthletics )
+  set p_speechcraft to ( GetSpeechcraft )
+  set p_mercantile to ( GetMercantile )
+  set p_sneak to ( GetSneak )
+  set p_security to ( GetSecurity )
+
+  set p_shortblade to ( GetShortblade )
+  set p_longblade to ( GetLongblade )
+  set p_axe to ( GetAxe )
+  set p_marksman to ( GetMarksman )
+  set p_spear to ( GetSpear )
+  set p_bluntweapon to ( GetBluntweapon )
+
+  set p_handtohand to ( GetHandtohand )
+  set p_unarmored to ( GetUnarmored )
+  set p_block to ( GetBlock )
+  set p_lightarmor to ( GetLightarmor )
+  set p_mediumarmor to ( GetMediumarmor )
+  set p_heavyarmor to ( GetHeavyarmor )
+  set p_armorer to ( GetArmorer )
+
+  set p_enchant to ( GetEnchant )
+  set p_alchemy to ( GetAlchemy )
+  set p_mysticism to ( GetMysticism )
+  set p_conjuration to ( GetConjuration )
+  set p_illusion to ( GetIllusion )
+  set p_Alteration to ( GetAlteration )
+  set p_destruction to ( GetDestruction )
+  set p_restoration to ( GetRestoration )
+  
+  set p_strength to ( GetStrength )
+  set p_intelligence to ( GetIntelligence )
+  set p_willpower to ( GetWillpower )
+  set p_agility to ( GetAgility )
+  set p_endurance to ( GetEndurance )
+  set p_personality to ( GetPersonality )
+  set p_luck to ( GetLuck )
+
+messagebox "Speechcraft : %g - Mercantile : %g - Sneak : %g - Security : %g", p_speechcraft, p_mercantile, p_sneak, p_security
+messagebox "Short Blade : %g - Long Blade : %g - Axe : %g - Marksman : %g - Spear : %g - Blunt weapon : %g", p_shortblade, p_longblade, p_axe, p_marksman, p_spear, p_bluntweapon
+messagebox "Hand to hand : %g - Unarmored : %g - Block : %g - Light armor : %g - Medium armor : %g - Heavy armor : %g - Armorer : %g", p_handtohand, p_unarmored, p_block, p_lightarmor, p_mediumarmor, p_heavyarmor, p_armorer
+messagebox "Enchant : %g - Alchemy : %g - Mysticism : %g - Conjuration : %g - Illusion : %g - Alteration : %g - Destruction : %g - Restoration : %g", p_enchant, p_alchemy, p_mysticism, p_conjuration, p_illusion, p_alteration, p_destruction, p_restoration
+messagebox "Strength: %g - Intelligence: %g - Willpower: %g - Agility: %g - Endurance: %g - Personality: %g - Luck: %g", p_strength, p_intelligence, p_willpower, p_agility, p_endurance, p_personality, p_luck
+
+stopscript 11AJ_show_skills2
+
+End
+

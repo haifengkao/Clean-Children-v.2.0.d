@@ -1,0 +1,13 @@
+Begin ShaynaScript
+
+short state
+
+
+if ( MenuMode == 1 )
+	return
+endif
+
+set state to 209
+
+
+End

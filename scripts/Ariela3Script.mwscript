@@ -1,0 +1,27 @@
+Begin Ariela3Script
+
+
+short nolore
+short state
+
+
+
+
+if ( MenuMode == 1 )
+	return
+endif
+
+
+if ( GetHealth <= 0 )
+	return
+endif
+
+
+if ( state == 116 )
+	if ( CellChanged == 1)
+		Disable
+		Return
+	endif
+endif
+
+End

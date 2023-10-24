@@ -1,0 +1,20 @@
+Begin DancerScript
+
+Short stateVar
+
+if ( MenuMode == 1 )
+	return
+endif
+
+
+if ( stateVar == 20 )
+
+	if ( CellChanged == 1 )
+		Disable
+		ZZ_Xandra1->Disable
+		return
+	endif
+endif
+
+
+End

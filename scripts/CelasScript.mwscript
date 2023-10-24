@@ -1,0 +1,13 @@
+Begin CelasScript
+
+short state
+
+if ( state == 70 )
+	if ( CellChanged == 1 )
+		Disable
+		return
+	endif
+endif
+
+
+End

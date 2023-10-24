@@ -1,0 +1,22 @@
+Begin MariceaScript
+
+short nolore
+short doitonce
+
+if ( MenuMode == 1)
+	return
+endif
+
+;if ( doitonce == 1 )
+	;return
+;endif
+
+;if ( GetTarget ZZ_Zubar == 1 )
+	;if ( GetHealth <= 0 )
+
+	;endif
+;endif
+
+
+
+End

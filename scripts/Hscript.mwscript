@@ -1,0 +1,9 @@
+Begin Hscript
+
+if ( CellChanged == 1 )
+	Disable
+	return
+endif
+
+
+end

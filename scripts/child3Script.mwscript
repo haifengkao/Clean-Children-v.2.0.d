@@ -1,0 +1,13 @@
+Begin child3Script
+short nolore
+short state
+
+
+if ( state == 50 )
+	if ( CellChanged == 1 )
+		Disable
+		return
+	endif
+endif
+
+end

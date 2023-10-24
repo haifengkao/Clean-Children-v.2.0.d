@@ -1,0 +1,18 @@
+Begin VarderScript
+
+
+short state
+
+
+
+
+
+if ( state == 202 )
+	if ( CellChanged == 1 )
+		Disable
+		return
+	endif
+endif
+
+
+End

@@ -1,0 +1,20 @@
+Begin PriestScript
+
+short nolore
+short state
+
+
+if ( OnDeath == 1)
+	return
+endif
+
+if ( state == 16 )
+	if ( CellChanged == 1 )
+		Disable
+		return
+	endif
+endif
+
+
+
+End

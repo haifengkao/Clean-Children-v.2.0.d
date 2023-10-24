@@ -1,0 +1,13 @@
+begin UjalaScript
+
+short ujalaScriptDoOnce 
+if ( ujalaScriptDoOnce == 0 )
+if ( GetPcCell "Bitter Coast Region" == 1 )
+	if ( GetDistance, Player < 500 )
+		
+			ForceGreeting
+			set ujalaScriptDoOnce to 1
+	endif	
+endif
+endif
+end

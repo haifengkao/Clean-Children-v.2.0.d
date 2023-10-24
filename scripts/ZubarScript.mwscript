@@ -1,0 +1,36 @@
+Begin ZubarScript
+
+
+short nolore
+short doitonce
+
+if ( MenuMode == 1 )
+	return
+endif
+;if ( doitonce == 1 )
+	;return
+;endif
+
+;Set doitonce to 0
+
+;if ( Player->GetItemCount, "bk_BookorAriela" == 1 )
+	;if ( doitonce == 0 )
+		;ForceGreeting
+		
+		;Set doitonce to 1
+		;return
+		;endif
+;endif
+
+
+if ( GetJournalIndex ZJ_Arrived >= 30 )
+	ZZ_Maricea->Disable
+	ZZ_Zubar->Disable
+	return
+endif
+
+
+
+
+
+end

@@ -1,0 +1,279 @@
+begin DaughterScript
+
+short noLore
+short followNow
+
+short state ;used by ariela
+short Arieladressed
+
+float timer
+
+Short companion
+
+Short follownow
+Short weapon_state
+Short pclev
+Short complev
+Short forcerunmode
+Short combatmode
+
+Short celltype
+Short watercell
+Short matchpcz
+;Short hurryup
+Short oldcell
+Short p_speed
+
+;Short copycast
+
+
+
+Float warpdelay
+Float combattimer
+Float wandertimer
+Float pcz
+Float myz
+Float surfaceheight
+Float minsubheight
+Float zdiff
+Float comppcdist
+Float levitimer
+
+
+
+If ( MenuMode == 1 ) ;dont know what it is for, if player look the stat, should be normal, not modified skill
+	Return
+EndIf
+
+If ( GetHealth <= 0 )
+	Return
+EndIf
+
+if ( GetPcCell "Ascadian Isles Region" == 1 )
+	if ( GetDistance Player<500 )
+		if ( state == 105 )	
+			ForceGreeting
+		endif
+	endif
+endif
+
+if ( state == 109 )
+	if ( GetPcCell "Balmora" == 1 )
+	
+		ForceGreeting
+		return
+	endif
+endif
+
+;avoid repeat get follow check
+If ( GetCurrentAIPackage == 0 )
+	Set follownow To 0
+elseIf ( GetCurrentAIPackage == 3 )
+	Set follownow To 1
+Endif
+
+Set weapon_state To ( "Player"->GetWeaponDrawn )
+Set celltype To GetInterior
+Set pclev To ( "Player"->GetEffect sEffectLevitate ) ;PC levitation
+Set complev To ( GetEffect sEffectLevitate ) ;computer levitation
+Set forcerunmode To GetForceRun
+
+If ( GetWeaponDrawn == 1 )
+	Set combatmode To 3
+	Set combattimer To 0
+elseIf ( GetSpellReadied == 1 )
+	Set combatmode To 2
+	Set combattimer To 0
+elseIf ( combattimer < 5 )
+	Set combatmode To 1
+	Set combattimer To ( combattimer + GetSecondsPassed )
+elseIf ( combatmode > 0 )
+	Set combatmode To 0 ;no weapon drawn after 5 seconds, so the combat is over
+EndIf
+
+
+;If ( nospells < 2 )
+;	If ( GetSpell "AA_Laura_frost_bolt" == 0 )
+;		AddSpell "AA_Laura_frost_bolt"
+;	EndIf
+;	If ( nospells == 0 )
+;		If ( GetSpell "AA_Laura_summon_ghost" == 0 )
+;			AddSpell "AA_Laura_summon_ghost"
+;		EndIf
+;		If ( GetSpell "11AA_paralys" == 0 )
+;			AddSpell "11AA_paralys"
+;		EndIf
+;	EndIf
+;EndIf
+
+If ( GetHealth < 100 )
+	If ( GetMagicka > 17 )
+		Cast "AJ1_Restore_Health" player
+		ModCurrentMagicka -13
+	
+	EndIf
+
+EndIf
+
+If ( follownow == 0 )
+	Set warpdelay To -2
+	SetSpeed 50
+	If ( forcerunmode == 1 )
+		ClearForceRun
+	EndIf
+	If ( GetForceSneak == 1 )
+			ClearForceSneak
+	EndIf
+
+	Return
+Endif
+
+
+Set pcz To ( "Player"->GetPos z )
+If ( GetPCSneaking == 1 )
+	If ( GetForceSneak == 0 )
+		ForceSneak
+	EndIf
+elseIf ( GetForceSneak == 1 )
+	ClearForceSneak
+EndIf
+
+;If ( nospells > 0 )
+;	If ( GetSpell "AA_Laura_summon_ghost" == 1 )
+;		RemoveSpell "AA_Laura_summon_ghost"
+;	EndIf
+;	If ( GetSpell "11AA_paralys" == 1 )
+;		RemoveSpell "11AA_paralys"
+;	EndIf
+;	If ( nospells == 2 )
+;		If ( GetSpell "AA_Laura_frost_bolt" == 1 )
+;			RemoveSpell "AA_Laura_frost_bolt"
+;		EndIf
+;	EndIf
+;EndIf
+
+If ( CellChanged == 1 )
+	Set watercell To 1
+	If ( celltype == 1 )
+		Set watercell To 0
+		Set warpdelay To -3
+	elseIf ( oldcell == 1 )
+		Set wandertimer To 2.25
+	EndIf
+elseIf ( warpdelay == -3 )
+	Set warpdelay To 0
+	Set pclev To 0
+	Set wandertimer To 2.25
+elseIf ( combatmode > 0 ) ;fighting
+	
+	Set warpdelay To -2
+	If ( forcerunmode == 1 )
+		ClearForceRun
+	EndIf
+	
+	else
+	
+		Set myz To ( GetPos z )
+	
+		;If ( copycast == 1 )
+			If ( complev > pclev )
+				If ( levitimer < 5 )
+					Set levitimer To ( levitimer + GetSecondsPassed )
+				else
+					RemoveSpell "AJ1_levitate"
+				EndIf
+			else
+				Set levitimer To 0
+				If ( complev < pclev )
+					Cast "AJ1_levitate" "ZZ_Ariela"
+				Endif
+			EndIf
+			If ( "Player"->GetEffect sEffectWaterWalking == 1 )
+				If ( GetEffect sEffectWaterWalking == 0 )
+					;Cast "AJ1_Water_Walk" "ZZ_Ariela"
+				EndIf
+			elseIf ( GetEffect sEffectWaterWalking == 1 )
+				RemoveSpell "AJ1_Water_Walk"
+			EndIf
+		;EndIf
+		If ( complev == 1 )
+			Set matchpcz To 1
+		elseIf ( watercell == 1 )
+			Set surfaceheight To ( GetWaterLevel - 126.8719 )
+			If ( myz <= surfaceheight )
+				Set minsubheight To ( surfaceheight - 12.0181 )
+				Set surfaceheight To ( surfaceheight - 5 )
+				If ( pcz <= minsubheight )
+					Set matchpcz To 1
+				elseIf ( myz <= surfaceheight )
+					Set matchpcz To 1
+				EndIf
+			EndIf
+		EndIf
+; LEVITATION & swimming gradually sets the "z" axis to that of the player when companion is levitating or swimming.
+; Game AI for NPC levitation works poorly in the vertical. This fixes that.
+		If ( matchpcz == 1 )
+			Set zdiff To ( myz - pcz )
+			If ( zdiff != 0 )
+				If ( zdiff >= 5 )
+					Set myz To ( myz - 5 )
+				elseIf ( zdiff <= -5 )
+					Set myz To ( myz + 5 )
+				else
+					Set myz To pcz
+				EndIf
+				SetPos z myz
+			EndIf
+			Set matchpcz To 0
+		EndIf
+		Set comppcdist To ( GetDistance "Player" )
+		If ( comppcdist > 250 )
+			;If ( hurryup == 1 ) ;dont know what is this for?
+				If ( forcerunmode == 0 )
+					ForceRun
+				EndIf
+			;EndIf
+		elseIf ( forcerunmode == 1 )
+			ClearForceRun
+		EndIf
+		If ( comppcdist > 680 )
+			If ( warpdelay == -2 )
+				Say "Vo\B\F\Flw_BF004.mp3" "Hey! Wait for me!"
+				set Warpdelay to -1
+			elseIf ( warpdelay == -1 )
+				Set warpdelay To 1
+			EndIf
+		elseIf ( comppcdist < 500 )
+			Set warpdelay To -2
+		EndIf
+	
+Endif
+Set oldcell To celltype
+;If ( eggs == 0 )
+	Set p_speed To ( ( "Player"->GetSpeed ) * 2.25 )
+	SetSpeed p_speed
+	If ( watercell == 0 )
+		If ( GetSoundPlaying "FootWaterLeft" == 1 )
+			Set watercell To 1
+		elseIf ( GetSoundPlaying "FootWaterRight" == 1 )
+			Set watercell To 1
+		elseIf ( GetSoundPlaying "DefaultLandWater" == 1 )
+			Set watercell To 1
+		EndIf
+	EndIf
+;EndIf
+; WARPING TO PLAYER (Used to improve "following" ability.)
+If ( warpdelay > 0 )
+	Set warpdelay To ( warpdelay - GetSecondsPassed )
+elseIf ( warpdelay > -1 )
+	If ( complev >= pclev )
+		SetPos z pcz
+		Set pcz To ( "Player"->GetPos x )
+		SetPos x pcz 
+		Set pcz To ( "Player"->GetPos y )
+		SetPos y pcz
+	EndIf
+	Set warpdelay To -2
+EndIf
+
+End
