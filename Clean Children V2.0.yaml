@@ -21,6 +21,7 @@ records:
     hidden: true
     attributes:
       - Strength
+      - Willpower
     skills: []
     reactions:
       Hlaalu: -3

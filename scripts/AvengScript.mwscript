@@ -1,6 +1,6 @@
 Begin AvengScript
 
-if ( GetHealth,  "ArielaAvenger" < 3200 )
+if ( "ArielaAvenger"->GetHealth  < 3200 )
 	ModCurrentHealth 3200
 endif
 
